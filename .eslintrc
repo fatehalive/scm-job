@@ -1,0 +1,20 @@
+{
+    "extends": [
+        "airbnb",
+        "plugin:prettier/recommended", // Mengaktifkan ESLint plugin Prettier dan menampilkan kesalahan Prettier sebagai kesalahan ESLint
+        "prettier/react"
+    ],
+    "plugins": [
+        "prettier"
+    ],
+    "rules": {
+        "prettier/prettier": [
+            "error",
+            {
+                "semi": false, // Atur aturan spesifik Prettier disini, misalnya tidak menggunakan semicolon
+                "singleQuote": true
+            }
+        ]
+        // Aturan ESLint tambahan atau penyesuaian bisa ditambahkan disini
+    }
+}
