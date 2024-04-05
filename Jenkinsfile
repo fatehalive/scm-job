@@ -5,14 +5,16 @@ pipeline {
     stages {
         stage('Print SCM Variables') {
             steps {
-                echo $GH_REPOSITORY_SECRET
-                echo $GH_REPOSITORY_VARIABLE
-                echo $git_secret
+                echo "${GH_REPOSITORY_SECRET}"
+                echo "${GH_REPOSITORY_VARIABLE}"
             }
-            steps('Print Jenkins Global Variables') {
+        }
+        stage('Print Jenkins Global Variables') {
+            steps {
                 echo "${JOB_NAME} akan dibuilt sesaat lagi"
                 echo "This Job triggered by ${GIT_AUTHOR_NAME}"
             }
+        }
         // steps {
         //         def git_repository = 'git@github.com:fatehalive/practice-cicd.git'
         //         def git_branch = 'master'
@@ -25,6 +27,5 @@ pipeline {
         //         docker container run --name redis_db -p 6379:6379 --mount "type=volume,source=redis_volume,target=/data" redis:latest
         //     '''
         // }
-        }
     }
 }
