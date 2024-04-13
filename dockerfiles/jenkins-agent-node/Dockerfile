@@ -1,28 +1,25 @@
-# Pakai base image Node LTS
-FROM node:latest
+FROM jenkins/inbound-agent:latest
 
-# Label image
-LABEL description="Jenkins Agent (Slave) with Node.js"
+# Switch ke root user utk install packages
+USER root
 
-# Update paket dan install dependensi
-RUN apt-get update && apt-get install -y \
-  git \
-  openssh-client \
-  ca-certificates \
-  apt-transport-https \
-  && rm -rf /var/lib/apt/lists/*
+# Avoid prompts from apt
+ENV DEBIAN_FRONTEND=noninteractive
 
-# Siapkan direktori kerja
-WORKDIR /home/node
+# Update the package repository and install git
+RUN apt-get update && apt-get install -y curl git
+
+# Install Node.js to exec nodejs project
+RUN curl -sL https://deb.nodesource.com/setup_lts.x | bash - && apt-get install -y nodejs
+
+# install pnpm
 RUN npm install -g pnpm
-ARG JENKINS_USER=jenkins
-ARG JENKINS_UID=1000
-ARG JENKINS_GID=1000
-RUN groupadd -g ${JENKINS_GID} ${JENKINS_USER} \
-  && useradd -m -u ${JENKINS_UID} -g ${JENKINS_GID} -d /home/${JENKINS_USER} ${JENKINS_USER} \
-  && mkdir /home/${JENKINS_USER}/.ssh \
-  && chown -R ${JENKINS_USER}:${JENKINS_GID} /home/${JENKINS_USER}
 
-USER ${JENKINS_USER}
-WORKDIR /home/${JENKINS_USER}
-CMD ["node"]
+# Verify instalasi
+RUN git --version && java -version && javac -version && node --version && pnpm --version
+
+# Switch back ke default user (jenkins)
+USER jenkins
+
+# Set a default working directory; this is where Jenkins will execute the builds
+WORKDIR /home/jenkins

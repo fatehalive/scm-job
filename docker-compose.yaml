@@ -1,0 +1,27 @@
+name: practice-cicd
+version: '3.8'
+
+services:
+  jenkins_master:
+    container_name: jenkins_master
+    build: ./dockerfiles/jenkins-master
+    image: jenkins/master:latest
+    ports:
+      - '9090:8080' # forwarding custom port host 9090 ke 8080 si containernya
+      - '50000:50000' # dan ekspos 50000 utk para slavenya
+    volumes:
+      - jenkins_data:/var/jenkins_home
+  jenkins_agent:
+    container_name: jenkins_agent
+    build: ./dockerfiles/jenkins-agent-node
+    image: jenkins/agent:latest
+    ports:
+      - '22:22' # buka port 22 utk koneksi ke master
+    volumes:
+      - jenkins_data:/home/jenkins
+    environment:
+      - JENKINS_AGENT_SSH_PUBKEY=${JENKINS_AGENT_SSH_PUBKEY}
+
+volumes:
+  jenkins_data:
+    driver: local

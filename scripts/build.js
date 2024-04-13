@@ -24,7 +24,6 @@ exec('tsc', async (err, stdout, stderr) => {
         console.error(`Error minifying ${file}:`, err);
       }
     }
-    const stringg = "string";
   } catch (error) {
     console.error(`Error reading ${file}:`, readErr);
   }

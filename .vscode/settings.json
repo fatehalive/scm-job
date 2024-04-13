@@ -11,5 +11,11 @@
     "terminal.integrated.shellIntegration.suggestEnabled": false,
     "eslint.format.enable": true,
     "editor.defaultFormatter": null,
-    "eslint.options": {}
+    "eslint.options": {},
+    "[dockerfile]": {
+        "editor.defaultFormatter": "ms-azuretools.vscode-docker"
+    },
+    "[dockercompose]": {
+        "editor.defaultFormatter": "ms-azuretools.vscode-docker"
+    }
 }
