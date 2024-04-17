@@ -1,6 +1,7 @@
 #!/bin/bash
 
-# instance jenkins dlm container 
-# forwarding custom port host 9090 ke 8080 si containernya
-# dan ekspos 50000 utk para slavenya
-docker run -d --name jenkins-master -p 9090:8080 -p 50000:50000 jenkins-custom-image:latest
+docker volume create volume_jenkins_master
+docker volume create volume_jenkins_agent
+
+docker run -d --name container_jenkins_master --mount 'type=volume,source=volume_jenkins_master,target=/var/jenkins_home' -p 9090:8080 -p 50000:50000 jenkins/master
+docker run -d --name container_jenkins_agent --mount 'type=volume,source=volume_jenkins_agent,target=/home/jenkins' -p 22:22 jenkins/agent
