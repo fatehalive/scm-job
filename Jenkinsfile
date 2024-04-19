@@ -3,9 +3,9 @@ pipeline {
     agent any
 
     environment {
-        GH_SECRET= env.GH_SECRET
-        GH_VARIABLE= env.GH_REPO_VARIABLE
-        GH_VAR_HARDCODE= asdf
+        GH_SECRET= "${env.GH_SECRET}"
+        GH_VARIABLE= "${env.GH_REPO_VARIABLE}"
+        GH_VAR_HARDCODE= 'ini hardcode'
     }
 
     stages {
