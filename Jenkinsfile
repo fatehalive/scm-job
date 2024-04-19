@@ -2,11 +2,16 @@
 pipeline {
     agent any
 
+    environment {
+        GH_SECRET=env.GH_SECRET
+        GH_VARIABLE=env.GH_REPO_VARIABLE
+    }
+
     stages {
         stage('Print SCM Variables') {
             steps {
-                echo "${GH_REPOSITORY_SECRET}"
-                echo "${GH_REPOSITORY_VARIABLE}"
+                echo "${GH_SECRET}"
+                echo "${GH_VARIABLE}"
             }
         }
         stage('Print Jenkins Global Variables') {
