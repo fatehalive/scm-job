@@ -1,25 +1,20 @@
-
 pipeline {
     agent any
 
     environment {
         GH_SECRET= "${env.GH_SECRET}"
         GH_VARIABLE= "${env.GH_REPO_VARIABLE}"
-        GH_VAR_HARDCODE= 'ini hardcode'
+        GH_VAR_HARDCODE= "asdf"
     }
 
     stages {
-        stage('Print SCM Variables') {
+        stage('Print Environment Variables') {
             steps {
-                echo "${GH_SECRET}"
-                echo "${GH_VARIABLE}"
+                echo "GH_SECRET: ${env.GH_SECRET}"
+                echo "GH_VARIABLE: ${env.GH_REPO_VARIABLE}"
+                echo "GH_VAR_HARDCODE: ${env.GH_VAR_HARDCODE}"
             }
         }
-        stage('Print Jenkins Global Variables') {
-            steps {
-                echo "${JOB_NAME} akan dibuilt sesaat lagi"
-                echo "This Job triggered by ${GIT_AUTHOR_NAME}"
-            }
-        }
+        // Lanjutan alur kerja (pipeline) Anda...
     }
 }
